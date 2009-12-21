@@ -1,1 +1,35 @@
-comming soon
+/* ****************************************************** *\
+* 	
+* 	Author:
+* 	  Martin Bommeli
+* 	  http://www.flashjunior.ch
+* 	
+* 	Origianl graphics:
+* 	  Abdulhalim Kara
+* 	  http://www.abdulhalimkara.com/
+* 	
+* 	Preview:
+* 	  http://www.flashjunior.ch/archiv/flvplayer/2/
+* 	
+* 	Code:
+* 	  http://github.com/FlashJunior/OSFlashVideoPlayer
+* 	  
+\* ****************************************************** */
+
+
+SOURCE CODE -> COMMINT SOON!!!
+
+
+FEATURES
+- aspect ratio detection
+- fullscreen mode
+- controllerbar autohide
+- preview image
+- autoplay
+- loop
+- different colours via flashvars
+
+MOVIE TYPES
+- FLV, F4V
+- MOV, MP4
+- vimeo, youtube
