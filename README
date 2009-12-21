@@ -1,18 +1,18 @@
 /* ****************************************************** *\
 * 	
-* 	Author:
-* 	  Martin Bommeli
-* 	  http://www.flashjunior.ch
-* 	
-* 	Origianl graphics:
-* 	  Abdulhalim Kara
-* 	  http://www.abdulhalimkara.com/
-* 	
 * 	Preview:
 * 	  http://www.flashjunior.ch/archiv/flvplayer/2/
 * 	
 * 	Code:
 * 	  http://github.com/FlashJunior/OSFlashVideoPlayer
+* 	
+* 	Author:
+* 	  Martin Bommeli
+* 	  http://www.flashjunior.ch
+* 	
+* 	Original graphics:
+* 	  Abdulhalim Kara
+* 	  http://www.abdulhalimkara.com/
 * 	  
 \* ****************************************************** */
 
@@ -33,3 +33,14 @@ MOVIE TYPES
 - FLV, F4V
 - MOV, MP4
 - vimeo, youtube
+
+CREATED WITH:
+- Flash CS4
+- De MonsterDebugger http://www.deMonsterDebugger.com
+- TweenLite http://blog.greensock.com/tweenlite/
+- moogaloop http://vimeo.com/api/docs/moogaloop
+
+TODO:
+- rewrite youtube player - without as2_tubeloc.swf
+- external skinning functionality
+- error textfield
