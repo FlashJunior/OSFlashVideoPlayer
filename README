@@ -17,8 +17,8 @@
 *
 *
 * 	Special thanks to:
-* 	  Abdulhalim Kara for help, some codes and very nice skin
-* 	  Florian Weil for his youtube classes
+* 	  Abdulhalim Kara (www.abdulhalimkara.com) for help, some codes and very nice skin
+* 	  Florian Weil (www.derhess.de) for his youtube classes
 * 	  DIVIO (www.divio.ch) for given time
 *
 \* ****************************************************** */
@@ -42,10 +42,9 @@ CREATED WITH:
 - De MonsterDebugger http://www.deMonsterDebugger.com
 - TweenLite http://blog.greensock.com/tweenlite/
 - moogaloop http://vimeo.com/api/docs/moogaloop
-- youtube http://blog.derhess.de/2009/10/27/the-new-youtube-as3-chromeless-api-in-flex-air-flash/
+- youtube api http://blog.derhess.de/2009/10/27/the-new-youtube-as3-chromeless-api-in-flex-air-flash/
 
 TODO & Bugs:
-- rewrite youtube and vimeo player - without as2_tubeloc.swf
 - external skinning functionality
 - stretch mode
 - error textfield
