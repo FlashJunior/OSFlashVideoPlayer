@@ -1,24 +1,27 @@
 /* ****************************************************** *\
+* 	OPEN SOURCE FLASH VIDEO PLAYER
 * 	
-* 	Preview:
+* 	Preview/Generator:
 * 	  http://www.flashjunior.ch/archiv/flvplayer/2/
 * 	
-* 	Code:
+* 	Source/Code:
 * 	  http://github.com/FlashJunior/OSFlashVideoPlayer
 * 	
 * 	Author:
 * 	  Martin Bommeli
 * 	  http://www.flashjunior.ch
 * 	
-* 	Original graphics:
+* 	Original graphics and some part of codes:
 * 	  Abdulhalim Kara
 * 	  http://www.abdulhalimkara.com/
-* 	  
+*
+*
+* 	Special thanks to:
+* 	  Abdulhalim Kara for help, some codes and very nice skin
+* 	  Florian Weil for his youtube classes
+* 	  DIVIO (www.divio.ch) for given time
+*
 \* ****************************************************** */
-
-
-SOURCE CODE -> COMMINT SOON!!!
-
 
 FEATURES
 - aspect ratio detection
@@ -39,8 +42,12 @@ CREATED WITH:
 - De MonsterDebugger http://www.deMonsterDebugger.com
 - TweenLite http://blog.greensock.com/tweenlite/
 - moogaloop http://vimeo.com/api/docs/moogaloop
+- youtube http://blog.derhess.de/2009/10/27/the-new-youtube-as3-chromeless-api-in-flex-air-flash/
 
-TODO:
-- rewrite youtube player - without as2_tubeloc.swf
+TODO & Bugs:
+- rewrite youtube and vimeo player - without as2_tubeloc.swf
 - external skinning functionality
+- stretch mode
 - error textfield
+- youtube: autohide doesn't work
+- vimeo: "skinning"
