@@ -7,6 +7,9 @@
 * 	Source/Code:
 * 	  http://github.com/FlashJunior/OSFlashVideoPlayer
 * 	
+* 	Problems/Issues:
+* 	  http://github.com/FlashJunior/OSFlashVideoPlayer/issues
+* 	
 * 	Author:
 * 	  Martin Bommeli
 * 	  http://www.flashjunior.ch
@@ -44,9 +47,9 @@ CREATED WITH:
 - moogaloop http://vimeo.com/api/docs/moogaloop
 - youtube api http://blog.derhess.de/2009/10/27/the-new-youtube-as3-chromeless-api-in-flex-air-flash/
 
-TODO & Bugs:
+TODO:
 - external skinning functionality
 - stretch mode
 - error textfield
-- youtube: autohide doesn't work
 - vimeo: "skinning"
+- youtube: quality selection ("default","small","medium","large","hd720")
