@@ -2,7 +2,7 @@
 * 	OPEN SOURCE FLASH VIDEO PLAYER
 * 	
 * 	Preview/Generator:
-* 	  http://www.flashjunior.ch/archiv/flvplayer/2/
+* 	  http://www.flashjunior.ch/archiv/flvplayer/
 * 	
 * 	Source/Code:
 * 	  http://github.com/FlashJunior/OSFlashVideoPlayer
@@ -30,13 +30,15 @@
 \* ****************************************************** */
 
 FEATURES
-- aspect ratio detection
-- fullscreen mode
-- controllerbar autohide
-- preview image
+- youtube, vimeo and flv player in one :-)
 - autoplay
 - loop
+- aspect ratio detection
+- controllerbar autohide
+- fullscreen mode
+- preview image
 - different colours via flashvars
+more @ http://www.flashjunior.ch/archiv/flvplayer/
 
 MOVIE TYPES
 - FLV, F4V
@@ -48,4 +50,5 @@ CREATED WITH:
 - De MonsterDebugger http://www.deMonsterDebugger.com
 - TweenLite http://blog.greensock.com/tweenlite/
 - moogaloop http://vimeo.com/api/docs/moogaloop
-- youtube api http://blog.derhess.de/2009/10/27/the-new-youtube-as3-chromeless-api-in-flex-air-flash/
+- youtube api http://code.google.com/apis/youtube/flash_api_reference.html
+- youtube oop classes http://blog.derhess.de/2009/10/27/the-new-youtube-as3-chromeless-api-in-flex-air-flash/
