@@ -30,14 +30,14 @@ package com.moogaloop{
 		
 		private var load_timer:Timer = new Timer(200);
 		
-		public function VimeoPlayer(clip_id:int, w:int, h:int)
+		public function VimeoPlayer(clip_id:int, w:int, h:int, fulls:int=0)
 		{
 			this.setDimensions(w, h);
 			
 			Security.allowDomain("http://bitcast.vimeo.com");
 			
 			var loader:Loader = new Loader();
-			var request:URLRequest = new URLRequest("http://bitcast.vimeo.com/vimeo/swf/moogaloop.swf?clip_id=" + clip_id + "&width=" + w + "&height=" + h + '&fullscreen=0');
+			var request:URLRequest = new URLRequest("http://bitcast.vimeo.com/vimeo/swf/moogaloop.swf?clip_id=" + clip_id + "&width=" + w + "&height=" + h + '&fullscreen='+fulls);
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onComplete);
 			loader.load(request); 
 		}
@@ -47,7 +47,7 @@ package com.moogaloop{
 			player_height = h;
 		}
 		
-		private function onComplete(e:Event) {
+		private function onComplete(e:Event):void  {
 			// Finished loading moogaloop
 			container.addChild(e.target.loader.content);
 			moogaloop = e.target.loader.content;
@@ -142,5 +142,9 @@ package com.moogaloop{
 			moogaloop.api_setSize(w, h);
 			this.redrawMask();
 		}
+		
+		public function setLoop(p:int):void {			
+			moogaloop.api_setLoop(p);
+		}		
 	}
 }
