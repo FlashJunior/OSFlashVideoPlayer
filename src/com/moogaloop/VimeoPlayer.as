@@ -47,7 +47,7 @@ package com.moogaloop{
 			player_height = h;
 		}
 		
-		private function onComplete(e:Event):void  {
+		private function onComplete(e:Event):void {
 			// Finished loading moogaloop
 			container.addChild(e.target.loader.content);
 			moogaloop = e.target.loader.content;
@@ -145,6 +145,11 @@ package com.moogaloop{
 		
 		public function setLoop(p:int):void {			
 			moogaloop.api_setLoop(p);
-		}		
+		}
+		
+		public function setVolume(p:int):void {
+			moogaloop.api_setVolume(p);
+		}
+				
 	}
 }

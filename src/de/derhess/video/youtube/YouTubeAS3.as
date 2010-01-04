@@ -89,7 +89,7 @@ package de.derhess.video.youtube
 		}
 		
 		/** @private */
-		private var _playerState:Number = -1;;
+		private var _playerState:Number = -1;
 		/**
 		 * Read-only!!
 		 */
