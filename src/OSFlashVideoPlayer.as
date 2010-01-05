@@ -47,9 +47,9 @@ package {
 	
 	import nl.demonsters.debugger.MonsterDebugger;
 
-	public class OSFlashVideoPlayer extends MovieClip{		
+	public class OSFlashVideoPlayer extends MovieClip{
 		private var videoMovie:*;
-		private var debugger:MonsterDebugger;		
+		private var debugger:MonsterDebugger;
 		
 		public static var videoSrc : String;
 		public static var imgSrc : String;
@@ -61,13 +61,13 @@ package {
 		public static var autoplay : String;
 		
 		public static var seekbarColor:String;
-		public static var seekbarbgColor:String;		
-		public static var loadingbarColor:String;		
+		public static var seekbarbgColor:String;
+		public static var loadingbarColor:String;
 		public static var textColor:String;		
 		public static var btnOutColor:String;
 		public static var btnOverColor:String;
 		public static var btnHighlightColor:String;
-				
+
 		private var sharedObj : SharedObject;
 
 		public function OSFlashVideoPlayer(){
@@ -78,8 +78,8 @@ package {
 			}
 		}
 		
-		private function init(e:Event = null):void{		
-			Security.allowDomain("*");			
+		private function init(e:Event = null):void{
+			Security.allowDomain("*");
 			debugger = new MonsterDebugger(this);
 			MonsterDebugger.enabled = false;
 			MonsterDebugger.clearTraces();
@@ -93,7 +93,7 @@ package {
 		}
 		
 		private function initPlayer(e:Event):void{
-			removeEventListener(Event.ADDED_TO_STAGE, initPlayer);		
+			removeEventListener(Event.ADDED_TO_STAGE, initPlayer);
 	
 			stage.scaleMode = flash.display.StageScaleMode.NO_SCALE;
 			stage.align = flash.display.StageAlign.TOP_LEFT;
@@ -101,7 +101,7 @@ package {
 			VideoPlayer.STAGE = StopDragButton.STAGE = stage;
 			
 			imgSrc 				= stage.loaderInfo.parameters["image"];
-			videoSrc 			= stage.loaderInfo.parameters["movie"];			
+			videoSrc 			= stage.loaderInfo.parameters["movie"];
 			videoLoop 			= stage.loaderInfo.parameters["loop"];
 			fullscreenMode 		= stage.loaderInfo.parameters["fullscreen"];
 			autohide 			= stage.loaderInfo.parameters["autohide"];
@@ -132,7 +132,7 @@ package {
 			!seekbarbgColor ? seekbarbgColor = "0x333333" : seekbarbgColor = seekbarbgColor;
 			!loadingbarColor ? loadingbarColor = "0x828282" : loadingbarColor = loadingbarColor;
 			!textColor ? textColor = "0xffffff" : textColor = textColor;
-			!btnOutColor ? btnOutColor = "0x333333" : btnOutColor = btnOutColor;			
+			!btnOutColor ? btnOutColor = "0x333333" : btnOutColor = btnOutColor;
 			!btnOverColor ? btnOverColor = "0x000000" : btnOverColor = btnOverColor;
 			!btnHighlightColor ? btnHighlightColor = "0xffffff" : btnHighlightColor = btnHighlightColor;
 			
@@ -156,7 +156,7 @@ package {
 					}
 				}
 				
-				videoMovie = new VideoPlayer(videoSrc, "youtube");							
+				videoMovie = new VideoPlayer(videoSrc, "youtube");
 				
 			} else if(StringUtils.contains(videoSrc, "vimeo.com")){
 				regex = RegExp("vimeo.com/(.+?)(\&.*|$)");

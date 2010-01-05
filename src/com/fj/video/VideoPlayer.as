@@ -25,7 +25,7 @@ package com.fj.video {
 	import de.derhess.video.youtube.YouTubeVideoQuality;
 	import de.derhess.video.youtube.YouTubeEvent;
 	import de.derhess.video.youtube.FlashYouTube;
-	
+
 	import com.fj.utils.StopDragButton;
 
 	import flash.display.Loader;
@@ -51,27 +51,27 @@ package com.fj.video {
 	import com.greensock.*;
 	import com.greensock.easing.*;
 	import com.greensock.plugins.*;
-	TweenPlugin.activate([TintPlugin]);	
+	TweenPlugin.activate([TintPlugin]);
 	
 	
 	public class VideoPlayer extends MovieClip{
 		public static var STAGE:Stage;
 		
-		private var seekbarWidth:uint;		
-		private var volumebarWidth:uint;		
+		private var seekbarWidth:uint;
+		private var volumebarWidth:uint;
 		private var stageWidth:uint;
 		private var stageHeight:uint;
 		
 		private var currentState:String;
-		private var currentVideo:String;		
+		private var currentVideo:String;
 		
-		private var sharedObj:SharedObject;		
+		private var sharedObj:SharedObject;
 		private var soundtransform:SoundTransform;
 		
-		private var stopScrubDrag:StopDragButton;		
+		private var stopScrubDrag:StopDragButton;
 		private var stopVScrubDrag:StopDragButton;
 		
-		private var lastState:String;		
+		private var lastState:String;
 		
 		public var video_mc : MovieClip;
 		private var video:Video;
@@ -107,7 +107,7 @@ package com.fj.video {
 			this.videoType = videoType;
 			
 			//stopScrubDrag = new StopDragButton();
-			//stopVScrubDrag = new StopDragButton();			
+			//stopVScrubDrag = new StopDragButton();
 			
 			removeChild(loader);
 			
@@ -126,14 +126,14 @@ package com.fj.video {
 					stageResize();
 				});
 				
-				imageLoader.load(imageRequest);				
+				imageLoader.load(imageRequest);
 			}
 			
 			setCTRLButton(welcome.play_btn, handleBigPlayClick);
 		}
 		
 		
-		public function init():void{			
+		public function init():void{
 			STAGE.addEventListener(KeyboardEvent.KEY_DOWN, handleKeyDown);
 			addEventListener(Event.ADDED_TO_STAGE, handleAddedToStage);
 			STAGE.addEventListener(FullScreenEvent.FULL_SCREEN, handleFullScreenEvent);
@@ -142,7 +142,7 @@ package com.fj.video {
 			if(OSFlashVideoPlayer.autohide == "true"){
 				STAGE.addEventListener(Event.MOUSE_LEAVE, handleMouseLeave);
 				
-				STAGE.addEventListener(MouseEvent.MOUSE_MOVE, handleMouseMove);				
+				STAGE.addEventListener(MouseEvent.MOUSE_MOVE, handleMouseMove);
 				
 				autoHideTimer = new Timer(3000);
 				autoHideTimer.addEventListener(TimerEvent.TIMER, handleAutoHideTimerTick);
@@ -165,7 +165,7 @@ package com.fj.video {
 			
 			TweenLite.to(ctrlBar.time_mc.time_txt, 0, {tint:OSFlashVideoPlayer.textColor});
 			TweenLite.to(ctrlBar.time_mc.duration_txt, 0, {tint:OSFlashVideoPlayer.textColor});
-			TweenLite.to(ctrlBar.time_mc.div, 0, {tint:OSFlashVideoPlayer.textColor});			
+			TweenLite.to(ctrlBar.time_mc.div, 0, {tint:OSFlashVideoPlayer.textColor});
 						
 			if(OSFlashVideoPlayer.fullscreenMode == "false"){
 				ctrlBar.fullscreen_btn.visible = false;
@@ -182,7 +182,7 @@ package com.fj.video {
 				video_mc.addChild(youTubePlayer);
 				
 			}else if(videoType == "vimeo"){
-				//vimeoPlayer = new VimeoPlayer(videoSrc, 200, 200, 1);			
+				//vimeoPlayer = new VimeoPlayer(videoSrc, 200, 200, 1);
 				//video_mc.addChild(vimeoPlayer);
 			}else{
 				soundtransform = new SoundTransform();
@@ -219,12 +219,12 @@ package com.fj.video {
 			ctrlBar.bar_volume_mc.scrub_mc.x = sharedObj.data.volume != undefined ? Number(ctrlBar.bar_volume_mc.scrub_mc.sc.x + sharedObj.data.volume) : ctrlBar.bar_volume_mc.scrub_mc.x;
 			ctrlBar.bar_volume_mc.scrub_mc.x = ctrlBar.bar_volume_mc.scrub_mc.x < ctrlBar.bar_volume_mc.scrub_mc.sc.x ? ctrlBar.bar_volume_mc.scrub_mc.sc.x : (ctrlBar.bar_volume_mc.scrub_mc.x > ctrlBar.bar_volume_mc.scrub_mc.sc.x + volumebarWidth ? ctrlBar.bar_volume_mc.scrub_mc.sc.x + volumebarWidth : ctrlBar.bar_volume_mc.scrub_mc.x);
 			
-			addChildAt(welcome, getChildIndex(video_mc) + 1);			
+			addChildAt(welcome, getChildIndex(video_mc) + 1);
 			
 			setCTRLButton(ctrlBar.play_btn, playVideo);
 			setCTRLButton(ctrlBar.bar_volume_mc.scrub_mc, null, changeVolumeScrubState);
 			ctrlBar.bar_volume_mc.hit_mc.addEventListener(MouseEvent.MOUSE_DOWN, startVScrubDraging);
-			ctrlBar.bar_volume_mc.hit_mc.buttonMode = true;			
+			ctrlBar.bar_volume_mc.hit_mc.buttonMode = true;
 			
 			updateVolume();
 			
@@ -275,7 +275,7 @@ package com.fj.video {
 		}
 		
 		private function handleMouseLeave(e:Event):void{
-			MonsterDebugger.trace(this, "handleMouseLeave");			
+			MonsterDebugger.trace(this, "handleMouseLeave");
 			
 			if(ctrlBar.y < STAGE.stageHeight && !STAGE.getChildByName("stopDragButton")){
 				TweenLite.to(ctrlBar, 0.5, {y:STAGE.stageHeight+20, ease:Quad.easeOut});
@@ -320,10 +320,10 @@ package com.fj.video {
 		
 		private var bytesL:*;
 		private var bytesT:*;
-		public function updateLoadingbar(e:Event = null):void{			
-			if(videoType == "youtube"){				
+		public function updateLoadingbar(e:Event = null):void{
+			if(videoType == "youtube"){
 				bytesL = youTubePlayer.getVideoBytesLoaded();
-				bytesT = youTubePlayer.getVideoBytesTotal();		
+				bytesT = youTubePlayer.getVideoBytesTotal();
 			}else if(videoType == "vimeo"){
 				
 			
@@ -331,21 +331,21 @@ package com.fj.video {
 				bytesL = stream.bytesLoaded;
 				bytesT = stream.bytesTotal;
 			}			
-			ctrlBar.bar_seek_mc.bar_loader_mc.width = bytesL / bytesT * seekbarWidth;		
-			if(bytesL >= bytesT){removeEventListener(Event.ENTER_FRAME, updateLoadingbar);}			
+			ctrlBar.bar_seek_mc.bar_loader_mc.width = bytesL / bytesT * seekbarWidth;
+			if(bytesL >= bytesT){removeEventListener(Event.ENTER_FRAME, updateLoadingbar);}
 		}
 		
 		private function updateTime(e:Event):void{
 			ctrlBar.bar_seek_mc.bar_mc.width = (ctrlBar.bar_seek_mc.scrub_mc.x - ctrlBar.bar_seek_mc.scrub_mc.sc.x) > 0 ? ((ctrlBar.bar_seek_mc.scrub_mc.x - ctrlBar.bar_seek_mc.scrub_mc.sc.x) <= seekbarWidth ? (ctrlBar.bar_seek_mc.scrub_mc.x - ctrlBar.bar_seek_mc.scrub_mc.sc.x) : seekbarWidth) : 0.1;
 			time = (ctrlBar.bar_seek_mc.bar_mc.width / seekbarWidth) * duration;
-		}		
+		}
 		
-		private function stageResize(e:Event=null):void{			
+		private function stageResize(e:Event=null):void{
 			stageWidth = STAGE.stageWidth;
 			stageHeight = STAGE.stageHeight;
 			
 			if(videoType == "youtube"){
-				youTubePlayer.setSize(stageWidth, stageHeight-buttomSpacing);				
+				youTubePlayer.setSize(stageWidth, stageHeight-buttomSpacing);
 				
 			}else if(videoType == "vimeo"){
 				//vimeoPlayer.setSize(stageWidth, stageHeight-buttomSpacing);
@@ -385,7 +385,7 @@ package com.fj.video {
 				ctrlBar.bar_volume_mc.x = stageWidth - ctrlBar.bar_volume_mc.bg_mc.width - itemMargin;
 			}else{
 				ctrlBar.fullscreen_btn.x 	= stageWidth - ctrlBar.fullscreen_btn.width - itemMargin;	
-				ctrlBar.bar_volume_mc.x		= ctrlBar.fullscreen_btn.x - ctrlBar.bar_volume_mc.bg_mc.width - itemMargin;		
+				ctrlBar.bar_volume_mc.x		= ctrlBar.fullscreen_btn.x - ctrlBar.bar_volume_mc.bg_mc.width - itemMargin;
 			}
 			
 			ctrlBar.bar_volume_mc.scrub_mc.x 		= ctrlBar.bar_volume_mc.sc_mc.x + int(ctrlBar.bar_volume_mc.scrub_mc.x - ctrlBar.bar_volume_mc.sc_mc.x);
@@ -617,7 +617,7 @@ package com.fj.video {
 			}
 		}
 		
-		private function startScrubDraging(e:MouseEvent):void{			
+		private function startScrubDraging(e:MouseEvent):void{
 			ctrlBar.bar_seek_mc.scrub_mc.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_DOWN));
 			ctrlBar.bar_seek_mc.scrub_mc.x = ctrlBar.bar_seek_mc.scrub_mc.sc.x + (ctrlBar.bar_seek_mc.scrub_mc.sc.mouseX < 0 ? 0 : (ctrlBar.bar_seek_mc.scrub_mc.sc.mouseX > seekbarWidth ? seekbarWidth : ctrlBar.bar_seek_mc.scrub_mc.sc.mouseX));
 			ctrlBar.bar_seek_mc.scrub_mc.x += ctrlBar.bar_seek_mc.scrub_mc.sc.mouseX > 0 ? (ctrlBar.bar_seek_mc.scrub_mc.sc.mouseX < seekbarWidth ? -8 : 0) : 0;
@@ -647,14 +647,14 @@ package com.fj.video {
 			
 			STAGE.removeEventListener(Event.MOUSE_LEAVE, stopScrubDraging);
 			stopDragButton.removeEventListener(MouseEvent.MOUSE_UP, stopScrubDraging);
-			stopDragButton.removeEventListener(MouseEvent.MOUSE_MOVE, seekVideo);			
+			stopDragButton.removeEventListener(MouseEvent.MOUSE_MOVE, seekVideo);
 			
 			if(lastState == "playing"){
 				if(videoType == "youtube") {
 					youTubePlayer.playVideo();
 					if(youTubePlayer.getCurrentTime() < duration){
 						setPlayedState();
-					}			
+					}
 					
 				}else if(videoType == "vimeo"){
 					/*vimeoPlayer.play();
@@ -662,7 +662,7 @@ package com.fj.video {
 						setPlayedState();
 					}*/		
 			
-				}else{				
+				}else{
 					stream.resume();
 					if(stream.time < duration){
 						setPlayedState();
@@ -695,8 +695,8 @@ package com.fj.video {
 			}
 			if(duration > 0) ctrlBar.bar_seek_mc.scrub_mc.x = ctrlBar.bar_seek_mc.scrub_mc.sc.x + (timeV / duration) * seekbarWidth;
 		}
-		
-		
+
+
 		/*
 		 * Volume functionality
 		 */
@@ -718,7 +718,7 @@ package com.fj.video {
 		}
 		
 		private function stopVolumeScrubDraging(e:Event):void{
-			var stopDragButton:MovieClip;		
+			var stopDragButton:MovieClip;
 			
 			if(e.currentTarget is Stage){
 				if(!STAGE.contains(STAGE.getChildByName("stopDragButton"))) return;
@@ -745,7 +745,7 @@ package com.fj.video {
 				showError("Could not write SharedObject[sharedObj] to disk! Error : " + er);
 			}
 		}
-		private function updateVolume(e:Event=null):void{				
+		private function updateVolume(e:Event=null):void{
 			ctrlBar.bar_volume_mc.bar_mc.width = (ctrlBar.bar_volume_mc.scrub_mc.x - ctrlBar.bar_volume_mc.scrub_mc.sc.x) > 0 ? ((ctrlBar.bar_volume_mc.scrub_mc.x - ctrlBar.bar_volume_mc.scrub_mc.sc.x) < volumebarWidth ? (ctrlBar.bar_volume_mc.scrub_mc.x - ctrlBar.bar_volume_mc.scrub_mc.sc.x) : volumebarWidth) : 0.01;
 			
 			if(videoType == "youtube"){
@@ -755,7 +755,7 @@ package com.fj.video {
 			
 			}else{
 				soundtransform.volume = ctrlBar.bar_volume_mc.bar_mc.width / volumebarWidth;
-				stream.soundTransform = soundtransform;		
+				stream.soundTransform = soundtransform;
 			}	
 		}
 		
@@ -763,7 +763,7 @@ package com.fj.video {
 		/*
 		 * Button actions
 		 */		 
-		public function setCTRLButton(btn:MovieClip, clickFun:Function = null, stateFun:Function = null):void{			
+		public function setCTRLButton(btn:MovieClip, clickFun:Function = null, stateFun:Function = null):void{
 			btn.buttonMode = true;
 			if(stateFun!= null){
 				btn.addEventListener(MouseEvent.MOUSE_OVER, stateFun);
@@ -785,7 +785,7 @@ package com.fj.video {
 				btn.removeEventListener(MouseEvent.MOUSE_UP, stateFun);
 			}else{
 				btn.removeEventListener(MouseEvent.MOUSE_OVER, changeCTRLButtonState);
-				btn.removeEventListener(MouseEvent.MOUSE_OUT, changeCTRLButtonState);			
+				btn.removeEventListener(MouseEvent.MOUSE_OUT, changeCTRLButtonState);
 				btn.removeEventListener(MouseEvent.CLICK, clickFcn);
 			}
 		}
@@ -818,13 +818,13 @@ package com.fj.video {
 		
 		/*
 		 * Error
-		 */		 
+		 */
 		 private function showError(txt:String=""):void{
 		 	MonsterDebugger.trace(this, txt);
 		 	ctrlBar.errortxt_mc.visible = true;
 			ctrlBar.errortxt_mc.txt.text = txt;
 		 }
-		 
+
 		 private function hideErrorTxt():void{
 		 	MonsterDebugger.trace(this, "hideErrorTxt");
 		 	ctrlBar.errortxt_mc.visible = false;
@@ -836,7 +836,7 @@ package com.fj.video {
 		
 		private function asyncErrorHandler(e:AsyncErrorEvent):void{
 			showError("asyncErrorHandler: " + e.text);
-		}		 
+		}
 		
 		
 		/*
@@ -850,10 +850,10 @@ package com.fj.video {
 			if(OSFlashVideoPlayer.autoplay == "true"){playVideo();}
 		}
 
-		private function youtubeHandlePlayingState(event:YouTubeEvent):void{	        	
+		private function youtubeHandlePlayingState(event:YouTubeEvent):void{
 			switch(event.playerState){
 				case YouTubePlayingState.BUFFERING:
-					MonsterDebugger.trace(this, "YouTubePlayingState: BUFFERING");		
+					MonsterDebugger.trace(this, "YouTubePlayingState: BUFFERING");
 					//if(!contains(loader)){addChild(loader);}
 					break;
 				case YouTubePlayingState.UNSTARTED:
@@ -879,12 +879,12 @@ package com.fj.video {
 								addChildAt(welcome, getChildIndex(video_mc) + 1);
 								youTubePlayer.seekTo(0);
 								pauseVideo();
-							}				
+							}
 						}
 					}else{
 						youTubePlayer.seekTo(0);
 						//pauseVideo();
-					}					 
+					}
 					break;
 				default:
 					//"uh what happens?? " + event.playerState;

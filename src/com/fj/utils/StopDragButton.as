@@ -1,4 +1,4 @@
-﻿package com.fj.utils{
+package com.fj.utils{
 	import flash.display.MovieClip;
 	import flash.display.Stage;
 	import flash.events.Event;
@@ -18,8 +18,8 @@
 			init();
 		}
 		
-		public function registerDragBtn(btn:MovieClip):StopDragButton{			
-			registeredDragBtn = btn;			
+		public function registerDragBtn(btn:MovieClip):StopDragButton{
+			registeredDragBtn = btn;
 			return this;
 		}
 		
