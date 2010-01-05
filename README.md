@@ -17,10 +17,11 @@ Preview/Embed-Generator
 ---------------------------------------------------
 [flashjunior.ch/archiv/flvplayer/](http://www.flashjunior.ch/archiv/flvplayer/)
 
-Source/Code
+Download
 ---------------------------------------------------
-[github.com/FlashJunior/OSFlashVideoPlayer](http://github.com/FlashJunior/OSFlashVideoPlayer)
-
+Please use always newest SWF from MASTER not from "download section".
+* newest SWF: [github.com/FlashJunior/OSFlashVideoPlayer/raw/master/player.swf](http://github.com/FlashJunior/OSFlashVideoPlayer/raw/master/player.swf)
+* Source/Code: [github.com/FlashJunior/OSFlashVideoPlayer](http://github.com/FlashJunior/OSFlashVideoPlayer)
 
 Problems/Issues
 ---------------------------------------------------
