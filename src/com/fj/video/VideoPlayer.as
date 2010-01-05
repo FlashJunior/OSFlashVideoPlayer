@@ -176,9 +176,9 @@ package com.fj.video {
 				
 			if(videoType == "youtube"){
 				youTubePlayer = new FlashYouTube();
-    			youTubePlayer.addEventListener(YouTubeEvent.PLAYER_LOADED, youtubeHandlePlayerLoaded);
-    			youTubePlayer.addEventListener(YouTubeEvent.STATUS, youtubeHandlePlayingState);
-    		
+				youTubePlayer.addEventListener(YouTubeEvent.PLAYER_LOADED, youtubeHandlePlayerLoaded);
+				youTubePlayer.addEventListener(YouTubeEvent.STATUS, youtubeHandlePlayingState);
+
 				video_mc.addChild(youTubePlayer);
 				
 			}else if(videoType == "vimeo"){
@@ -213,7 +213,7 @@ package com.fj.video {
 			stageResize();
 			updateCTRLButtonsPosition();
 		}
-		
+
 
 		private function handleAddedToStage(e:Event):void{
 			ctrlBar.bar_volume_mc.scrub_mc.x = sharedObj.data.volume != undefined ? Number(ctrlBar.bar_volume_mc.scrub_mc.sc.x + sharedObj.data.volume) : ctrlBar.bar_volume_mc.scrub_mc.x;
@@ -230,7 +230,7 @@ package com.fj.video {
 			
 			if(OSFlashVideoPlayer.autoplay == "true"){playVideo();}
 		}
-		
+
 			
 		private function get duration():Number{
 			return videoDuration;
@@ -355,7 +355,7 @@ package com.fj.video {
 				scaleMCtoMax(welcome.img_mc);
 			}
 			
-		 	ctrlBar.errortxt_mc.txt.width = stageWidth;
+			ctrlBar.errortxt_mc.txt.width = stageWidth;
 			
 			updateCTRLButtonsPosition();
 			
@@ -416,16 +416,16 @@ package com.fj.video {
 			}
 			
 			seekbarWidth = ctrlBar.bar_seek_mc.hit_mc.width;
-			volumebarWidth = ctrlBar.bar_volume_mc.hit_mc.width;			
-		}		
+			volumebarWidth = ctrlBar.bar_volume_mc.hit_mc.width;
+		}
 
 		private function scaleMCtoMax(mc:MovieClip):void{
-			mc.height = stageHeight-buttomSpacing;			
+			mc.height = stageHeight-buttomSpacing;
 			mc.scaleX = mc.scaleY;
 			
 			if(mc.width > stageWidth){
 				mc.width = stageWidth;
-				mc.scaleY = mc.scaleX;				
+				mc.scaleY = mc.scaleX;
 			}
 			
 			mc.x = (stageWidth - video_mc.width) / 2;
@@ -433,13 +433,13 @@ package com.fj.video {
 		}
 		
 		private function metaDataHandler(info:Object):void{
-			duration = info.duration;				
+			duration = info.duration;
 			video.width = info.width;
 			video.height = info.height;
 			initScrubling();
 		}
 		
-		private function initScrubling():void{			
+		private function initScrubling():void{
 			setCTRLButton(ctrlBar.bar_seek_mc.scrub_mc, null, changeScrubState);
 			
 			addEventListener(Event.ENTER_FRAME, updateTime);
@@ -447,11 +447,11 @@ package com.fj.video {
 			ctrlBar.bar_seek_mc.hit_mc.addEventListener(MouseEvent.MOUSE_DOWN, startScrubDraging);
 			ctrlBar.bar_seek_mc.hit_mc.buttonMode = true;
 			
-			stageResize();	
+			stageResize();
 		}
 		
 		
-		private function conNetStatusHandler(e:NetStatusEvent):void{	
+		private function conNetStatusHandler(e:NetStatusEvent):void{
 			if(e.info.code == "NetConnection.Connect.Success"){
 				var clientObj:Object = new Object();
 				clientObj.onMetaData = metaDataHandler;
@@ -462,10 +462,10 @@ package com.fj.video {
 				stream.client = clientObj;
 				stream.checkPolicyFile = true;
 				
-				video = new Video();				
+				video = new Video();
 				video.smoothing = true;
 				video_mc.addChild(video);
-				video.attachNetStream(stream);				
+				video.attachNetStream(stream);
 				
 				stageResize();
 				
@@ -479,8 +479,8 @@ package com.fj.video {
 			if(code == "NetStream.Play.StreamNotFound"){
 				showError("Stream not found: " + videoSrc);
 			} else if(code == "NetStream.Play.Start"){
-				addEventListener(Event.ENTER_FRAME, updateLoadingbar);			
-				if(!contains(loader)){addChild(loader);}				
+				addEventListener(Event.ENTER_FRAME, updateLoadingbar);
+				if(!contains(loader)){addChild(loader);}
 				setPlayedState();				
 			} else if(code == "NetStream.Play.Stop"){
 				if(OSFlashVideoPlayer.videoLoop == "false"){
@@ -489,7 +489,7 @@ package com.fj.video {
 							addChildAt(welcome, getChildIndex(video_mc) + 1);
 							stream.seek(0);
 							pauseVideo();
-						}				
+						}
 					}
 				}else{
 					stream.seek(0);
@@ -503,7 +503,7 @@ package com.fj.video {
 				stageResize();
 				if(contains(loader)){removeChild(loader);}
 			}
-		}		
+		}
 		
 		private function handleKeyDown(e:KeyboardEvent):void{
 			if(STAGE.getChildByName("stopDragButton") || STAGE.displayState == "fullScreen") return;
@@ -537,7 +537,7 @@ package com.fj.video {
 				
 				if(stream.time >= duration - 1){stream.seek(0);}
 				
-				stream.resume();			
+				stream.resume();
 			}
 		}
 		
@@ -557,9 +557,9 @@ package com.fj.video {
 			if(duration > 0){
 				var newSeek:* = Math.min(duration - 1, (ctrlBar.bar_seek_mc.bar_mc.width / seekbarWidth) * duration);
 				if(videoType == "youtube") {
-					youTubePlayer.seekTo(newSeek);		
+					youTubePlayer.seekTo(newSeek);
 				}else if(videoType == "vimeo"){
-					//vimeoPlayer.seekTo(newSeek);	
+					//vimeoPlayer.seekTo(newSeek);
 					
 				}else{
 					stream.seek(newSeek);
@@ -585,10 +585,10 @@ package com.fj.video {
 		}
 		
 		private function removeWelcome():void{
-			if(contains(welcome)){removeChild(welcome);}	
+			if(contains(welcome)){removeChild(welcome);}
 		}
-		
-		
+
+
 		/*
 		 * Scrubbling functionality
 		 */
@@ -604,7 +604,7 @@ package com.fj.video {
 
 				}else{
 					stream.pause();
-				}				
+				}
 				
 				removeEventListener(Event.ENTER_FRAME, updateScrub);
 				
@@ -628,8 +628,8 @@ package com.fj.video {
 				youTubePlayer.seekTo(newSeek);
 			}else if(videoType == "vimeo"){
 				//vimeoPlayer.seekTo(newSeek);
-							
-			}else{			
+
+			}else{
 				stream.seek(newSeek);
 			}
 		}
@@ -639,7 +639,7 @@ package com.fj.video {
 			
 			if(e.currentTarget is Stage){
 				if(!STAGE.contains(STAGE.getChildByName("stopDragButton"))) return;
-				
+
 				stopDragButton = MovieClip(STAGE.getChildByName("stopDragButton"));
 			}else{
 				stopDragButton = MovieClip(e.currentTarget);
@@ -649,7 +649,7 @@ package com.fj.video {
 			stopDragButton.removeEventListener(MouseEvent.MOUSE_UP, stopScrubDraging);
 			stopDragButton.removeEventListener(MouseEvent.MOUSE_MOVE, seekVideo);			
 			
-			if(lastState == "playing"){				
+			if(lastState == "playing"){
 				if(videoType == "youtube") {
 					youTubePlayer.playVideo();
 					if(youTubePlayer.getCurrentTime() < duration){
@@ -657,7 +657,7 @@ package com.fj.video {
 					}			
 					
 				}else if(videoType == "vimeo"){
-					/*vimeoPlayer.play();					
+					/*vimeoPlayer.play();
 					if(vimeoPlayer.getCurrentVideoTime() < duration){
 						setPlayedState();
 					}*/		
@@ -667,7 +667,7 @@ package com.fj.video {
 					if(stream.time < duration){
 						setPlayedState();
 					}
-				}			
+				}
 			}
 			
 			
@@ -682,17 +682,17 @@ package com.fj.video {
 		}
 		
 		private var timeV:*;
-		private function updateScrub(e:Event):void{			
-			if(videoType == "youtube") {				
+		private function updateScrub(e:Event):void{
+			if(videoType == "youtube") {
 				duration = youTubePlayer.getDuration();
 				timeV = youTubePlayer.getCurrentTime();
 			}else if(videoType == "vimeo"){
 				//duration = vimeoPlayer.getDuration();
 				//timeV =	vimeoPlayer.getCurrentVideoTime();
 			
-			}else{			
+			}else{
 				timeV = stream.time;
-			}			
+			}
 			if(duration > 0) ctrlBar.bar_seek_mc.scrub_mc.x = ctrlBar.bar_seek_mc.scrub_mc.sc.x + (timeV / duration) * seekbarWidth;
 		}
 		
@@ -710,7 +710,7 @@ package com.fj.video {
 			}
 		}
 		
-		private function startVScrubDraging(e:MouseEvent):void{			
+		private function startVScrubDraging(e:MouseEvent):void{
 			ctrlBar.bar_volume_mc.scrub_mc.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_DOWN));
 			ctrlBar.bar_volume_mc.scrub_mc.x = ctrlBar.bar_volume_mc.scrub_mc.sc.x + (ctrlBar.bar_volume_mc.scrub_mc.sc.mouseX < 0 ? 0 : (ctrlBar.bar_volume_mc.scrub_mc.sc.mouseX > volumebarWidth ? volumebarWidth : ctrlBar.bar_volume_mc.scrub_mc.sc.mouseX));
 			ctrlBar.bar_volume_mc.scrub_mc.x += ctrlBar.bar_volume_mc.scrub_mc.sc.mouseX > 0 ? (ctrlBar.bar_volume_mc.scrub_mc.sc.mouseX < volumebarWidth ? -8 : 0) : 0;
@@ -844,55 +844,53 @@ package com.fj.video {
 		 */		
 		private function youtubeHandlePlayerLoaded(event:YouTubeEvent):void{
 			removeWelcome();
-        	youTubePlayer.cueVideoById(videoSrc,0,YouTubeVideoQuality.DEFAULT);    	
-        	initScrubling();
-        	stageResize();
-        	if(OSFlashVideoPlayer.autoplay == "true"){playVideo();}
-        }
-        
-         private function youtubeHandlePlayingState(event:YouTubeEvent):void{	        	
-	        	switch(event.playerState){
-				    case YouTubePlayingState.BUFFERING:
-				       MonsterDebugger.trace(this, "YouTubePlayingState: BUFFERING");		
-						//if(!contains(loader)){addChild(loader);}
-				        break;
-				    case YouTubePlayingState.UNSTARTED:
-				       MonsterDebugger.trace(this, "YouTubePlayingState: UNSTARTED");
-				        break;
-				    case YouTubePlayingState.PLAYING:
-				       MonsterDebugger.trace(this, "YouTubePlayingState: PLAYING");
-				       //if(contains(loader)){removeChild(loader);}
-				       addEventListener(Event.ENTER_FRAME, updateLoadingbar);
-				       setPlayedState();
-				        break;
-				    case YouTubePlayingState.PAUSE:
-				       MonsterDebugger.trace(this, "YouTubePlayingState: PAUSE");
-				       setPausedState();
-				        break;
-				    case YouTubePlayingState.VIDEO_CUED:
-				       MonsterDebugger.trace(this, "YouTubePlayingState: Video is cued");
-				        break;
-				    case YouTubePlayingState.VIDEO_ENDED:
-						if(OSFlashVideoPlayer.videoLoop == "false"){
-							if(lastState == null){
-								if (!contains(welcome)){
-									addChildAt(welcome, getChildIndex(video_mc) + 1);
-									youTubePlayer.seekTo(0);
-									pauseVideo();
-								}				
-							}
-						}else{
-							youTubePlayer.seekTo(0);
-							//pauseVideo();
+			youTubePlayer.cueVideoById(videoSrc,0,YouTubeVideoQuality.DEFAULT);    	
+			initScrubling();
+			stageResize();
+			if(OSFlashVideoPlayer.autoplay == "true"){playVideo();}
+		}
+
+		private function youtubeHandlePlayingState(event:YouTubeEvent):void{	        	
+			switch(event.playerState){
+				case YouTubePlayingState.BUFFERING:
+					MonsterDebugger.trace(this, "YouTubePlayingState: BUFFERING");		
+					//if(!contains(loader)){addChild(loader);}
+					break;
+				case YouTubePlayingState.UNSTARTED:
+					MonsterDebugger.trace(this, "YouTubePlayingState: UNSTARTED");
+					break;
+				case YouTubePlayingState.PLAYING:
+					MonsterDebugger.trace(this, "YouTubePlayingState: PLAYING");
+					//if(contains(loader)){removeChild(loader);}
+					addEventListener(Event.ENTER_FRAME, updateLoadingbar);
+					setPlayedState();
+					break;
+				case YouTubePlayingState.PAUSE:
+					MonsterDebugger.trace(this, "YouTubePlayingState: PAUSE");
+					setPausedState();
+					break;
+				case YouTubePlayingState.VIDEO_CUED:
+					MonsterDebugger.trace(this, "YouTubePlayingState: Video is cued");
+					break;
+				case YouTubePlayingState.VIDEO_ENDED:
+					if(OSFlashVideoPlayer.videoLoop == "false"){
+						if(lastState == null){
+							if (!contains(welcome)){
+								addChildAt(welcome, getChildIndex(video_mc) + 1);
+								youTubePlayer.seekTo(0);
+								pauseVideo();
+							}				
 						}
-				        
-				        break;
-				 
-				    default:
-				    //"uh what happens?? " + event.playerState;
-				        break;
-				}
-				 
-	        }
+					}else{
+						youTubePlayer.seekTo(0);
+						//pauseVideo();
+					}					 
+					break;
+				default:
+					//"uh what happens?? " + event.playerState;
+					break;
+			}
+			 
+		}
 	}
 }

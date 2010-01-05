@@ -95,8 +95,8 @@ package {
 		private function initPlayer(e:Event):void{
 			removeEventListener(Event.ADDED_TO_STAGE, initPlayer);		
 	
-            stage.scaleMode = flash.display.StageScaleMode.NO_SCALE;
-            stage.align = flash.display.StageAlign.TOP_LEFT;
+			stage.scaleMode = flash.display.StageScaleMode.NO_SCALE;
+			stage.align = flash.display.StageAlign.TOP_LEFT;
 			
 			VideoPlayer.STAGE = StopDragButton.STAGE = stage;
 			
