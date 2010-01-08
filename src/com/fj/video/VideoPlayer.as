@@ -18,6 +18,8 @@ package com.fj.video {
 	* 	  http://www.abdulhalimkara.com/
 	*
 	\* ****************************************************** */
+	import de.derhess.video.youtube.YouTubeError;
+
 	import flash.events.SecurityErrorEvent;
 	import flash.events.AsyncErrorEvent;
 
@@ -178,6 +180,7 @@ package com.fj.video {
 				youTubePlayer = new FlashYouTube();
 				youTubePlayer.addEventListener(YouTubeEvent.PLAYER_LOADED, youtubeHandlePlayerLoaded);
 				youTubePlayer.addEventListener(YouTubeEvent.STATUS, youtubeHandlePlayingState);
+				youTubePlayer.addEventListener(YouTubeEvent.ERROR, youtubeHandleError);
 
 				video_mc.addChild(youTubePlayer);
 				
@@ -812,7 +815,7 @@ package com.fj.video {
 					break;
 				default :
 					setCTRLBtnOutState(MovieClip(e.currentTarget));
-			}			
+			}
 		}
 		
 		
@@ -838,6 +841,24 @@ package com.fj.video {
 			showError("asyncErrorHandler: " + e.text);
 		}
 		
+		private function youtubeHandleError(event:YouTubeEvent):void{
+			var message:String = "";
+			switch(event.errorCode){
+				case YouTubeError.VIDEO_NOT_FOUND:
+					message = "YouTube Video not found ("+event.errorCode+")";
+					break;
+				case YouTubeError.VIDEO_NOT_ALLOWED:
+					message = "YouTube Video not allowed ("+event.errorCode+")";
+					break;
+				case YouTubeError.EMBEDDING_NOT_ALLOWED:
+					message = "YouTube Embedding not allowed ("+event.errorCode+")";
+					break;      
+				default:
+					message = "YouTube Error ("+event.errorCode+")";
+					break;
+			}
+			showError(message);
+		}
 		
 		/*
 		 * youtube actions

@@ -117,7 +117,8 @@ package {
 			!videoSrc ? videoSrc = "http://www.flashjunior.ch/archiv/flvplayer/movies/kuga.mp4" : videoSrc = videoSrc;
 			//TEST flv 			!videoSrc ? videoSrc = "http://www.flashjunior.ch/archiv/flvplayer/movies/sad.flv" : videoSrc = videoSrc;
 			//TEST youtube 1 	!videoSrc ? videoSrc = "http://www.youtube.com/watch?v=YFa59lK-kpo" : videoSrc = videoSrc;
-			//TEST youtube 1 	!videoSrc ? videoSrc = "http://www.youtube.com/v/XrPNl_gZlvY" : videoSrc = videoSrc;
+			//TEST youtube 2 	!videoSrc ? videoSrc = "http://www.youtube.com/v/XrPNl_gZlvY" : videoSrc = videoSrc;
+			//TEST youtube 3 	!videoSrc ? videoSrc = "http://www.youtube.com/v/XrPNl_gZlvYYYYYY" : videoSrc = videoSrc;
 			//TEST vimeo 1 		!videoSrc ? videoSrc = "http://vimeo.com/7917744" : videoSrc = videoSrc;
 			//TEST vimeo 2		!videoSrc ? videoSrc = "http://www.vimeo.com/3740633" : videoSrc = videoSrc;
 			
