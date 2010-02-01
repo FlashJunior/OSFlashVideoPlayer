@@ -49,6 +49,7 @@ package com.fj.video {
 	import flash.net.NetStream;
 	import flash.net.SharedObject;
 	import flash.utils.Timer;
+	import flash.geom.Rectangle
 	
 	import com.greensock.*;
 	import com.greensock.easing.*;
@@ -163,6 +164,7 @@ package com.fj.video {
 			
 			TweenLite.to(ctrlBar.bar_seek_mc.bg_mc, 0, {tint:OSFlashVideoPlayer.seekbarbgColor});
 			TweenLite.to(ctrlBar.bar_volume_mc.bg_mc, 0, {tint:OSFlashVideoPlayer.seekbarbgColor});
+			
 			TweenLite.to(ctrlBar.time_mc.bg, 0, {tint:OSFlashVideoPlayer.seekbarbgColor});
 			
 			TweenLite.to(ctrlBar.time_mc.time_txt, 0, {tint:OSFlashVideoPlayer.textColor});
@@ -193,16 +195,23 @@ package com.fj.video {
 				connection.addEventListener(NetStatusEvent.NET_STATUS, conNetStatusHandler);
 				connection.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler)
 				connection.connect(null);
-			}
+			}			
 			
-			ctrlBar.bar_seek_mc.scrub_mc.sc = ctrlBar.bar_seek_mc.sc_mc;
+			ctrlBar.bar_seek_mc.scrub_mc.lockCenter = false;
+			ctrlBar.bar_seek_mc.scrub_mc.dragBounds = new Rectangle(0, 0, ctrlBar.bar_seek_mc.bg_mc.width-ctrlBar.bar_seek_mc.scrub_mc.width, 0);
+			
 			ctrlBar.bar_seek_mc.scrub_mc.stopDragBtn = new StopDragButton().registerDragBtn(ctrlBar.bar_seek_mc.scrub_mc);
+			
 			ctrlBar.bar_volume_mc.scrub_mc.sc = ctrlBar.bar_volume_mc.sc_mc;
+			
+			ctrlBar.bar_volume_mc.scrub_mc.lockCenter = false;
+			ctrlBar.bar_volume_mc.scrub_mc.dragBounds = new Rectangle(0, 0, ctrlBar.bar_volume_mc.bg_mc.width-ctrlBar.bar_volume_mc.scrub_mc.width, 0);
+			
 			ctrlBar.bar_volume_mc.scrub_mc.stopDragBtn = new StopDragButton().registerDragBtn(ctrlBar.bar_volume_mc.scrub_mc);			
 			
 			time = 0;
 			duration = 0;
-			ctrlBar.bar_seek_mc.scrub_mc.x = ctrlBar.bar_seek_mc.scrub_mc.sc.x;
+			ctrlBar.bar_seek_mc.scrub_mc.x = ctrlBar.bar_seek_mc.sc_mc.x;
 			ctrlBar.bar_seek_mc.bar_mc.width = 0.1;
 			ctrlBar.bar_seek_mc.bar_loader_mc.width = 0.1;
 			
@@ -212,6 +221,10 @@ package com.fj.video {
 			
 			disableCTRLButton(ctrlBar.bar_seek_mc.scrub_mc, null, changeScrubState);
 			disableCTRLButton(ctrlBar.bar_volume_mc.scrub_mc, null, changeVolumeScrubState);
+			
+			if(ctrlBar.bar_volume_mc.speaker_mc){
+				disableCTRLButton(ctrlBar.bar_volume_mc.speaker_mc, toggleMute);
+			}
 			
 			stageResize();
 			updateCTRLButtonsPosition();
@@ -226,6 +239,10 @@ package com.fj.video {
 			
 			setCTRLButton(ctrlBar.play_btn, playVideo);
 			setCTRLButton(ctrlBar.bar_volume_mc.scrub_mc, null, changeVolumeScrubState);
+			if(ctrlBar.bar_volume_mc.speaker_mc){
+				setCTRLButton(ctrlBar.bar_volume_mc.speaker_mc, toggleMute);
+			}
+			
 			ctrlBar.bar_volume_mc.hit_mc.addEventListener(MouseEvent.MOUSE_DOWN, startVScrubDraging);
 			ctrlBar.bar_volume_mc.hit_mc.buttonMode = true;
 			
@@ -335,11 +352,15 @@ package com.fj.video {
 				bytesT = stream.bytesTotal;
 			}			
 			ctrlBar.bar_seek_mc.bar_loader_mc.width = bytesL / bytesT * seekbarWidth;
+			
+			ctrlBar.bar_seek_mc.scrub_mc.dragBounds = new Rectangle(0, 0, ctrlBar.bar_seek_mc.bg_mc.width-ctrlBar.bar_seek_mc.scrub_mc.width, 0); // (x=1, y=3, w=11, h=13)
+			
+			
 			if(bytesL >= bytesT){removeEventListener(Event.ENTER_FRAME, updateLoadingbar);}
 		}
 		
 		private function updateTime(e:Event):void{
-			ctrlBar.bar_seek_mc.bar_mc.width = (ctrlBar.bar_seek_mc.scrub_mc.x - ctrlBar.bar_seek_mc.scrub_mc.sc.x) > 0 ? ((ctrlBar.bar_seek_mc.scrub_mc.x - ctrlBar.bar_seek_mc.scrub_mc.sc.x) <= seekbarWidth ? (ctrlBar.bar_seek_mc.scrub_mc.x - ctrlBar.bar_seek_mc.scrub_mc.sc.x) : seekbarWidth) : 0.1;
+			ctrlBar.bar_seek_mc.bar_mc.width = (ctrlBar.bar_seek_mc.scrub_mc.x - ctrlBar.bar_seek_mc.sc_mc.x) > 0 ? ((ctrlBar.bar_seek_mc.scrub_mc.x - ctrlBar.bar_seek_mc.sc_mc.x) <= seekbarWidth ? (ctrlBar.bar_seek_mc.scrub_mc.x - ctrlBar.bar_seek_mc.sc_mc.x) : seekbarWidth) : 0.1;
 			time = (ctrlBar.bar_seek_mc.bar_mc.width / seekbarWidth) * duration;
 		}
 		
@@ -622,11 +643,11 @@ package com.fj.video {
 		
 		private function startScrubDraging(e:MouseEvent):void{
 			ctrlBar.bar_seek_mc.scrub_mc.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_DOWN));
-			ctrlBar.bar_seek_mc.scrub_mc.x = ctrlBar.bar_seek_mc.scrub_mc.sc.x + (ctrlBar.bar_seek_mc.scrub_mc.sc.mouseX < 0 ? 0 : (ctrlBar.bar_seek_mc.scrub_mc.sc.mouseX > seekbarWidth ? seekbarWidth : ctrlBar.bar_seek_mc.scrub_mc.sc.mouseX));
-			ctrlBar.bar_seek_mc.scrub_mc.x += ctrlBar.bar_seek_mc.scrub_mc.sc.mouseX > 0 ? (ctrlBar.bar_seek_mc.scrub_mc.sc.mouseX < seekbarWidth ? -8 : 0) : 0;
-			ctrlBar.bar_seek_mc.scrub_mc.y = ctrlBar.bar_seek_mc.scrub_mc.sc.y;
+			ctrlBar.bar_seek_mc.scrub_mc.x = ctrlBar.bar_seek_mc.sc_mc.x + (ctrlBar.bar_seek_mc.sc_mc.mouseX < 0 ? 0 : (ctrlBar.bar_seek_mc.sc_mc.mouseX > seekbarWidth ? seekbarWidth : ctrlBar.bar_seek_mc.sc_mc.mouseX));
+			ctrlBar.bar_seek_mc.scrub_mc.x += ctrlBar.bar_seek_mc.sc_mc.mouseX > 0 ? (ctrlBar.bar_seek_mc.sc_mc.mouseX < seekbarWidth ? -8 : 0) : 0;
+			ctrlBar.bar_seek_mc.scrub_mc.y = ctrlBar.bar_seek_mc.sc_mc.y;
 			
-			var newSeek:* = ((ctrlBar.bar_seek_mc.scrub_mc.x - ctrlBar.bar_seek_mc.scrub_mc.sc.x) / seekbarWidth) * duration;
+			var newSeek:* = ((ctrlBar.bar_seek_mc.scrub_mc.x - ctrlBar.bar_seek_mc.sc_mc.x) / seekbarWidth) * duration;
 			if(videoType=="youtube") {
 				youTubePlayer.seekTo(newSeek);
 			}else if(videoType == "vimeo"){
@@ -676,8 +697,8 @@ package com.fj.video {
 			
 			lastState = null;
 			
-			ctrlBar.bar_seek_mc.scrub_mc.x = ctrlBar.bar_seek_mc.scrub_mc.x < ctrlBar.bar_seek_mc.scrub_mc.sc.x ? ctrlBar.bar_seek_mc.scrub_mc.sc.x : (ctrlBar.bar_seek_mc.scrub_mc.x > ctrlBar.bar_seek_mc.scrub_mc.sc.x + seekbarWidth ? ctrlBar.bar_volume_mc.scrub_mc.sc.x + seekbarWidth : ctrlBar.bar_seek_mc.scrub_mc.x);
-			ctrlBar.bar_seek_mc.scrub_mc.y = ctrlBar.bar_seek_mc.scrub_mc.sc.y;
+			ctrlBar.bar_seek_mc.scrub_mc.x = ctrlBar.bar_seek_mc.scrub_mc.x < ctrlBar.bar_seek_mc.sc_mc.x ? ctrlBar.bar_seek_mc.sc_mc.x : (ctrlBar.bar_seek_mc.scrub_mc.x > ctrlBar.bar_seek_mc.sc_mc.x + seekbarWidth ? ctrlBar.bar_volume_mc.scrub_mc.sc.x + seekbarWidth : ctrlBar.bar_seek_mc.scrub_mc.x);
+			ctrlBar.bar_seek_mc.scrub_mc.y = ctrlBar.bar_seek_mc.sc_mc.y;
 			
 			addEventListener(Event.ENTER_FRAME, updateScrub);
 			
@@ -696,7 +717,7 @@ package com.fj.video {
 			}else{
 				timeV = stream.time;
 			}
-			if(duration > 0) ctrlBar.bar_seek_mc.scrub_mc.x = ctrlBar.bar_seek_mc.scrub_mc.sc.x + (timeV / duration) * seekbarWidth;
+			if(duration > 0) ctrlBar.bar_seek_mc.scrub_mc.x = Math.round(ctrlBar.bar_seek_mc.sc_mc.x + (timeV / duration) * seekbarWidth);
 		}
 
 
@@ -713,10 +734,22 @@ package com.fj.video {
 			}
 		}
 		
+		private function toggleMute(e:MouseEvent=null):void{
+			if(ctrlBar.bar_volume_mc.scrub_mc.x>0){
+				ctrlBar.bar_volume_mc.scrub_mc.x = 0;				
+				updateVolume();
+				setVolume(0);
+			}else{
+				ctrlBar.bar_volume_mc.scrub_mc.x = ctrlBar.bar_volume_mc.bg_mc.width-ctrlBar.bar_volume_mc.scrub_mc.width;			
+				updateVolume();
+				setVolume(1);				
+			}
+		}		
+		
 		private function startVScrubDraging(e:MouseEvent):void{
 			ctrlBar.bar_volume_mc.scrub_mc.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_DOWN));
 			ctrlBar.bar_volume_mc.scrub_mc.x = ctrlBar.bar_volume_mc.scrub_mc.sc.x + (ctrlBar.bar_volume_mc.scrub_mc.sc.mouseX < 0 ? 0 : (ctrlBar.bar_volume_mc.scrub_mc.sc.mouseX > volumebarWidth ? volumebarWidth : ctrlBar.bar_volume_mc.scrub_mc.sc.mouseX));
-			ctrlBar.bar_volume_mc.scrub_mc.x += ctrlBar.bar_volume_mc.scrub_mc.sc.mouseX > 0 ? (ctrlBar.bar_volume_mc.scrub_mc.sc.mouseX < volumebarWidth ? -8 : 0) : 0;
+			ctrlBar.bar_volume_mc.scrub_mc.x += ctrlBar.bar_volume_mc.scrub_mc.sc.mouseX > 0 ? (ctrlBar.bar_volume_mc.scrub_mc.sc.mouseX < volumebarWidth ? -5 : 0) : 0;
 			ctrlBar.bar_volume_mc.scrub_mc.y = ctrlBar.bar_volume_mc.scrub_mc.sc.y;
 		}
 		
@@ -748,16 +781,20 @@ package com.fj.video {
 				showError("Could not write SharedObject[sharedObj] to disk! Error : " + er);
 			}
 		}
+
 		private function updateVolume(e:Event=null):void{
-			ctrlBar.bar_volume_mc.bar_mc.width = (ctrlBar.bar_volume_mc.scrub_mc.x - ctrlBar.bar_volume_mc.scrub_mc.sc.x) > 0 ? ((ctrlBar.bar_volume_mc.scrub_mc.x - ctrlBar.bar_volume_mc.scrub_mc.sc.x) < volumebarWidth ? (ctrlBar.bar_volume_mc.scrub_mc.x - ctrlBar.bar_volume_mc.scrub_mc.sc.x) : volumebarWidth) : 0.01;
+			ctrlBar.bar_volume_mc.bar_mc.width = (ctrlBar.bar_volume_mc.scrub_mc.x - ctrlBar.bar_volume_mc.sc_mc.x) > 0 ? ((ctrlBar.bar_volume_mc.scrub_mc.x - ctrlBar.bar_volume_mc.sc_mc.x) < volumebarWidth ? (ctrlBar.bar_volume_mc.scrub_mc.x - ctrlBar.bar_volume_mc.sc_mc.x) : volumebarWidth) : 0.01;
 			
+			setVolume((ctrlBar.bar_volume_mc.bar_mc.width / volumebarWidth));
+		}
+		
+		private function setVolume(v:Number):void{
 			if(videoType == "youtube"){
-				youTubePlayer.volume = (ctrlBar.bar_volume_mc.bar_mc.width / volumebarWidth)*100;
+				youTubePlayer.volume = v*100;
 			}else if(videoType == "vimeo"){
-				//vimeoPlayer.setVolume(Number((ctrlBar.bar_volume_mc.bar_mc.width / volumebarWidth)*100));
 			
-			}else{
-				soundtransform.volume = ctrlBar.bar_volume_mc.bar_mc.width / volumebarWidth;
+			}else{				
+				soundtransform.volume = v;				
 				stream.soundTransform = soundtransform;
 			}	
 		}

@@ -13,9 +13,10 @@ __Features__:
 * different colours via flashvars
 * more @ [flashjunior.ch/archiv/flvplayer/](http://www.flashjunior.ch/archiv/flvplayer/)
 
-Preview/Embed-Generator
+Preview/Embed-Generator/Examples
 ---------------------------------------------------
-[flashjunior.ch/archiv/flvplayer/](http://www.flashjunior.ch/archiv/flvplayer/)
+* [flashjunior.ch/archiv/flvplayer/](http://www.flashjunior.ch/archiv/flvplayer/)
+* [Example with another skin and toggleMute functionality](http://www.flashjunior.ch/archiv/flvplayer/2/?generator_playerswf=player_example-mutetoggle.swf)
 
 Download
 ---------------------------------------------------
