@@ -717,7 +717,7 @@ package com.fj.video {
 			}else{
 				timeV = stream.time;
 			}
-			if(duration > 0) ctrlBar.bar_seek_mc.scrub_mc.x = Math.round(ctrlBar.bar_seek_mc.sc_mc.x + (timeV / duration) * seekbarWidth);
+			if(duration > 0) ctrlBar.bar_seek_mc.scrub_mc.x = ctrlBar.bar_seek_mc.sc_mc.x + (timeV / duration) * seekbarWidth;
 		}
 
 
