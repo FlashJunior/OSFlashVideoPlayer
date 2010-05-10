@@ -452,7 +452,7 @@ package com.fj.video {
 				mc.scaleY = mc.scaleX;
 			}
 			
-			mc.x = (stageWidth - video_mc.width) / 2;
+			mc.x = (stageWidth - mc.width) / 2;
 			mc.y = ((stageHeight- buttomSpacing) - mc.height) / 2;
 		}
 		

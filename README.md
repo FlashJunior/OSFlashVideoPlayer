@@ -18,6 +18,7 @@ Preview/Embed-Generator/Examples
 * [flashjunior.ch/archiv/flvplayer/](http://www.flashjunior.ch/archiv/flvplayer/)
 * [Example with another skin and toggleMute functionality](http://www.flashjunior.ch/archiv/flvplayer/2/?generator_playerswf=player_example-mutetoggle.swf)
 
+
 Download
 ---------------------------------------------------
 Please use always newest SWF from MASTER not from "download section".
