@@ -65,8 +65,8 @@ package com.fj.video {
 		private var stageWidth:uint;
 		private var stageHeight:uint;
 		
-		private var currentState:String;
-		private var currentVideo:String;
+		public var currentState:String;
+		public var currentVideo:String;
 		
 		private var sharedObj:SharedObject;
 		private var soundtransform:SoundTransform;
@@ -81,8 +81,8 @@ package com.fj.video {
 		
 		private var connection:NetConnection;
 		private var stream:NetStream;
-		private var videoTime:Number = 0;
-		private var videoDuration:Number = 0;
+		public var videoTime:Number = 0;
+		public var videoDuration:Number = 0;
 		
 		private var loader:MovieClip;
 		
@@ -125,7 +125,12 @@ package com.fj.video {
 				var imageRequest:URLRequest = new URLRequest(String(OSFlashVideoPlayer.imgSrc));
 				
 				imageLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, function(evt:Event):void{
-					welcome.img_mc.addChild(imageLoader.content);
+				    try{
+				        welcome.img_mc.addChild(imageLoader.content);
+				    }catch(e){
+				        welcome.img_mc.addChild(imageLoader);
+				    }
+					
 					stageResize();
 				});
 				
